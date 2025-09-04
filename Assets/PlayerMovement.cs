@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Events;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -33,6 +34,7 @@ public class PlayerMovement : MonoBehaviour
         if (ctx.performed)
         {
             rb.AddForce(Vector3.up * jumpSpeed, ForceMode.Impulse);
+            animator.SetTrigger("jump");
         }
     }
 
