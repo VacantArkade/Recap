@@ -2,6 +2,8 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
+using UnityEngine.UI;
+using System.Collections;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -17,10 +19,15 @@ public class PlayerMovement : MonoBehaviour
     //Variables
     Vector3 movementVector;
 
+    [SerializeField] HealthSO health;
+
+    float DOTCounter = 0;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        health.restoreHealth();
     }
 
     // Update is called once per frame
@@ -56,5 +63,26 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         rb.AddForce(movementVector * moveSpeed, ForceMode.Acceleration);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.GetComponent<Hurtbox>() != null)
+        {
+            health.takeDamage();
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.GetComponent <Hurtbox>() != null)
+        {
+            DOTCounter += Time.deltaTime;
+            if (DOTCounter >= 2)
+            {
+                health.takeDamage();
+                DOTCounter = 0;
+            }
+        }
     }
 }
