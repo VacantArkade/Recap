@@ -45,13 +45,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-
-    /*public void OnMovement(InputValue v)
-    {
-        Vector2 inputVector = v.Get<Vector2>();
-        movementVector = new Vector3(inputVector.x, 0, inputVector.y);
-    }*/
-
     public void OnMovement(InputAction.CallbackContext ctx)
     {
         Vector2 inputVector = ctx.ReadValue<Vector2>();
@@ -70,6 +63,11 @@ public class PlayerMovement : MonoBehaviour
         if (other.gameObject.GetComponent<Hurtbox>() != null)
         {
             health.takeDamage();
+        }
+
+        if (other.gameObject.GetComponentInParent<Door>() != null)
+        {
+            other.gameObject.transform.position = Vector3.down;
         }
     }
 
