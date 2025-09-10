@@ -65,10 +65,11 @@ public class PlayerMovement : MonoBehaviour
             health.takeDamage();
         }
 
-        if (other.gameObject.GetComponentInParent<Door>() != null)
+        /*if (other.gameObject.GetComponentInParent<Door>() != null)
         {
-            other.gameObject.transform.position = Vector3.down;
-        }
+            other.gameObject.transform.position = new Vector3(0, -1, 0);
+            Debug.Log("touched door");
+        }*/
     }
 
     private void OnTriggerStay(Collider other)
